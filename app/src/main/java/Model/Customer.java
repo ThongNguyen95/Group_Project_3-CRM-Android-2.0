@@ -19,7 +19,8 @@ public class Customer implements Serializable {
     private Owner business;
     private double credit;
     private ArrayList<Message> msgBox;
-    
+    private String announcement;
+
     public Customer(String myid, String mypassword, String mycustomerName, Owner _bus)
     {
         id = myid;
@@ -28,8 +29,16 @@ public class Customer implements Serializable {
         business = _bus;
         credit = 0;
         msgBox = new ArrayList<>();
+        announcement = "None";
     }
-    
+
+    public String getAnnouncement() {
+        return announcement;
+    }
+    public void setAnnouncement(String announcement) {
+        this.announcement = announcement;
+    }
+
     public void setID(String myid)
     {
     id = myid;
@@ -38,6 +47,7 @@ public class Customer implements Serializable {
     {
     password = mypassword;
     }
+
      public String getID()
     {
         return id;
@@ -46,6 +56,7 @@ public class Customer implements Serializable {
     {
         return password;
     }
+
     public String getCustomerName()
     {
         return customerName;
@@ -58,7 +69,8 @@ public class Customer implements Serializable {
     {
         return business;
     }
-        public void setCredit(double num)
+
+    public void setCredit(double num)
     {
         credit = num;
     }
@@ -77,6 +89,7 @@ public class Customer implements Serializable {
         public void sendMessage(String subject, String content) {
         business.receiveMessage(new Message(customerName, subject, content));
     }
+
     public void sendCreditTo(Owner own,double num)
     {
         own.addCredit(num);

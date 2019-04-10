@@ -25,6 +25,8 @@ public class Owner implements Serializable {
     private  ArrayList<Calendar> cal;
     private List<Customer> appCust;     //For appointment
 
+    private String annoucement;
+
     //Display values
     private boolean dName;
     private boolean dCredit;
@@ -42,6 +44,21 @@ public class Owner implements Serializable {
         appCust = new ArrayList<>();
         dName = true;
         dCredit = true;
+
+        annoucement = "None";
+    }
+
+    //Getter and Setter for annoucement
+    public String getAnnoucement() {
+        return annoucement;
+    }
+
+    public void setAnnoucement(String announcement) {
+        this.annoucement = annoucement;
+        //set annoucement for all customers
+        for (Customer cust : customers) {
+            cust.setAnnouncement(announcement);
+        }
     }
 
     //Getter setter for display toggle values
