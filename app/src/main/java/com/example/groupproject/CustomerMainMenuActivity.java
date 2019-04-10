@@ -27,7 +27,15 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
         customer = (Customer) intent.getSerializableExtra("customer");
         final Context context = this;
 
-        TextView textView = (TextView) findViewById(R.id.customer_credits);
+        //Display customer and business name
+        TextView custName = findViewById(R.id.customer_name);
+        custName.setText(customer.getCustomerName());
+
+        TextView ownerName = findViewById(R.id.owner_name);
+        ownerName.setText("Customer of: " + customer.getBus().getCompanyName());
+
+
+        TextView textView = findViewById(R.id.customer_credits);
         textView.setText(Double.toString(customer.getCredit()));
         //manage credits
         Button butCredits = findViewById(R.id.manage_credits);

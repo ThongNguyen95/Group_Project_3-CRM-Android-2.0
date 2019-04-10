@@ -23,7 +23,7 @@ public class Owner implements Serializable {
     private ArrayList<Message> msgBox;
     
     private  ArrayList<Calendar> cal;
-    private List<Customer> appCust;
+    private List<Customer> appCust;     //For appointment
 
     //Display values
     private boolean dName;
