@@ -8,20 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.io.IOException;
 import Model.AllUsers;
 import Model.Owner;
-
 import static Controller.IO.writeToFile;
 
 
 public class OwnerMainMenuActivity extends AppCompatActivity {
     private static final int ZERO_ACTIVITY_REQUEST_CODE = 0;
     private static final int APPT_ACTIVITY_REQUEST_CODE = 1;
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 2;
-    private static final int ANNOUNCE_ACTIVITY_REQUEST_CODE = 3;
+    private static final int ANNOUNCE_ACTIVITY_REQUEST_CODE = 2;
     AllUsers allUsers;
     Owner owner;
 
@@ -41,7 +37,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         allUsers = (AllUsers) intent.getSerializableExtra("AllUsers");
-        String ownerID = intent.getStringExtra("ownerID");
+        final String ownerID = intent.getStringExtra("ownerID");
         owner = allUsers.getOwnerBasedOnID(ownerID);
 
         //Display Info
@@ -95,7 +91,8 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerMainMenuActivity.this, AnnouncementActivity.class);
-                intent.putExtra("Owner", owner);
+                intent.putExtra("AllUsers", allUsers);
+                intent.putExtra("OwnerID", ownerID);
                 startActivityForResult(intent, ANNOUNCE_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -155,7 +152,6 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (requestCode == APPT_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
@@ -190,19 +186,18 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
             }
         }
 
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
-                String ownerID = data.getStringExtra("ownerID");
-                owner = allUsers.getOwnerBasedOnID(ownerID);
-
-            }
-        }
-
         if (requestCode == ANNOUNCE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                owner = (Owner) data.getSerializableExtra("Owner");
+                allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+                String ownerID = data.getStringExtra("OwnerID");
+                owner = allUsers.getOwnerBasedOnID(ownerID);
                 textAnnounce.setText(owner.getAnnouncement());
+                //Save the data
+                try {
+                    writeToFile(OwnerMainMenuActivity.this,allUsers);
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
             }
         }
     }

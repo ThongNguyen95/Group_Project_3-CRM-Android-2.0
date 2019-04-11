@@ -213,4 +213,10 @@ public class AllUsers implements Serializable {
         }
         return false;
     }
+
+    //Update Owner after changing data
+    public void updateOwner(Owner owner) {
+        //find index
+        for (int i = 0; i < owners.size(); i++) {}
+    }
 }

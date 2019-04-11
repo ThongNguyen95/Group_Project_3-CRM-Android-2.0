@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+import Model.AllUsers;
 import Model.Owner;
 
 public class AnnouncementActivity extends AppCompatActivity {
@@ -23,8 +21,10 @@ public class AnnouncementActivity extends AppCompatActivity {
 
         // get owner
         final Intent intent = getIntent();
-        owner = (Owner) intent.getSerializableExtra("Owner");
-        Toast.makeText(getBaseContext(),owner.getID(),Toast.LENGTH_SHORT).show();
+        final AllUsers allUsers = (AllUsers) intent.getSerializableExtra("AllUsers");
+        final String ownerID = intent.getStringExtra("OwnerID");
+        owner = allUsers.getOwnerBasedOnID(ownerID);
+
         //Get today date
         Calendar today = new GregorianCalendar();
         int hour = today.get(Calendar.HOUR_OF_DAY);
@@ -58,9 +58,9 @@ public class AnnouncementActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText editAnnounce = findViewById(R.id.edit_announce);
                 String announcement = date + " " + editAnnounce.getEditableText().toString();
-
                 owner.setAnnouncement(announcement);
-                intent.putExtra("Owner", owner);
+                intent.putExtra("AllUsers", allUsers);
+                intent.putExtra("OwnerID", ownerID);
                 setResult(RESULT_OK, intent);
                 finish();
 
