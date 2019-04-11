@@ -18,8 +18,8 @@ import static Controller.IO.writeToFile;
 
 public class AddAppointmentActivity extends AppCompatActivity {
 
-     Owner owner;
-     AllUsers allUsers;
+    Owner owner;
+    AllUsers allUsers;
     private EditText mm,dd,yy,custId;
     private int month,day,year;
     private String customerId;

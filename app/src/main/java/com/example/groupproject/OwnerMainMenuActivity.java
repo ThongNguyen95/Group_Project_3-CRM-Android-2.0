@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.IOException;
 import Model.AllUsers;
 import Model.Owner;
@@ -16,19 +18,21 @@ import static Controller.IO.writeToFile;
 
 
 public class OwnerMainMenuActivity extends AppCompatActivity {
-
+    private static final int ZERO_ACTIVITY_REQUEST_CODE = 0;
     private static final int APPT_ACTIVITY_REQUEST_CODE = 1;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 2;
+    private static final int ANNOUNCE_ACTIVITY_REQUEST_CODE = 3;
     AllUsers allUsers;
     Owner owner;
 
     //Toggles for display
-    private static final int ZERO_ACTIVITY_REQUEST_CODE = 0;
     boolean dName;
     boolean dCredit;
     TextView textName;
     TextView textCredit;
 
+    //Announcement
+    TextView textAnnounce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,6 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_owner_main_menu);
 
         final Intent intent = getIntent();
-        String ownerId = intent.getStringExtra("ownerid");
         allUsers = (AllUsers) intent.getSerializableExtra("AllUsers");
         String ownerID = intent.getStringExtra("ownerID");
         owner = allUsers.getOwnerBasedOnID(ownerID);
@@ -53,9 +56,12 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
             textCredit.setText(Double.toString(owner.getCredit()));
         }
 
-        TextView textView = (TextView) findViewById(R.id.owner_credits);
+        TextView textView = findViewById(R.id.owner_credits);
         textView.setText(Double.toString(owner.getCredit()));
 
+        //Display Announcement
+        textAnnounce = findViewById(R.id.owner_menu_announcement_content);
+        textAnnounce.setText(owner.getAnnouncement());
 
         //manage credits
         Button butCredits = findViewById(R.id.manage_credits);
@@ -80,6 +86,17 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 intent.putExtra("dName", dName);
                 intent.putExtra("dCredit", dCredit);
                 startActivityForResult(intent, ZERO_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+        //Announcement button
+        Button butAnnounce = findViewById(R.id.add_announcement);
+        butAnnounce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerMainMenuActivity.this, AnnouncementActivity.class);
+                intent.putExtra("Owner", owner);
+                startActivityForResult(intent, ANNOUNCE_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -179,6 +196,13 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 String ownerID = data.getStringExtra("ownerID");
                 owner = allUsers.getOwnerBasedOnID(ownerID);
 
+            }
+        }
+
+        if (requestCode == ANNOUNCE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                owner = (Owner) data.getSerializableExtra("Owner");
+                textAnnounce.setText(owner.getAnnouncement());
             }
         }
     }

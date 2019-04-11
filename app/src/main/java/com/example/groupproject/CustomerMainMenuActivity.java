@@ -37,6 +37,11 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.customer_credits);
         textView.setText(Double.toString(customer.getCredit()));
+
+        //Display Owner's Announcement
+        TextView textAnnounce = findViewById(R.id.customer_menu_announcement_content);
+        textAnnounce.setText(customer.getAnnouncement());
+
         //manage credits
         Button butCredits = findViewById(R.id.manage_credits);
         butCredits.setOnClickListener(new View.OnClickListener() {
