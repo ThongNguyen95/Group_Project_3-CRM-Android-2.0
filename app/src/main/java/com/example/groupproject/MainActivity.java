@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.IOException;
-
 import Controller.SignIn;
 import Model.AllUsers;
 import Model.Customer;
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    Toast.makeText(getBaseContext(),"wrong user name or haven't sing up yet!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"wrong user name or haven't sign up yet!",Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -110,12 +108,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        //Sign Up Result
         if (requestCode == ZERO_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers)data.getSerializableExtra("AllUsers");
             }
         }
+        //Sign In Result
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers)data.getSerializableExtra("AllUsers");

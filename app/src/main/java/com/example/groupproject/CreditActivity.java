@@ -54,7 +54,7 @@ public class CreditActivity extends AppCompatActivity {
 
         //beginning of deposit
         Button deposit = findViewById(R.id.deposit_but);
-        result = (EditText) findViewById(R.id.editTextResult);
+        result = findViewById(R.id.editTextResult);
 
         deposit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -228,7 +228,8 @@ public class CreditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Send data back
-                Intent intent1;
+                /*Intent intent1 = new Intent(CreditActivity.this,OwnerMainMenuActivity.class);
+                intent1.putExtra("AllUsers", allUsers);
                 if(owner != null)
                 {
                     intent1 = new Intent(CreditActivity.this,OwnerMainMenuActivity.class);
@@ -244,6 +245,11 @@ public class CreditActivity extends AppCompatActivity {
                     intent1.putExtra("customer",customer);
                 }
                 setResult(RESULT_OK, intent1);
+                startActivityForResult(intent1,SECOND_ACTIVITY_REQUEST_CODE);
+                finish();*/
+
+                intent.putExtra("AllUsers", allUsers);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });

@@ -1,44 +1,41 @@
 package com.example.groupproject;
 
 import android.content.Context;
-import android.icu.util.Calendar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 
-import Model.Owner;
-
-public class DisplayOwnerAppointmentListAdapter extends RecyclerView.Adapter<DisplayOwnerAppointmentListAdapter.ViewHolder> {
-    private Owner owner;
+public class DisplayCustomerAppointmentListAdapter extends RecyclerView.Adapter<DisplayCustomerAppointmentListAdapter.ViewHolder> {
+    //private Owner owner;
+    private ArrayList<Calendar> tempList;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    DisplayOwnerAppointmentListAdapter(Context context, Owner _owner) {
+    DisplayCustomerAppointmentListAdapter(Context context, ArrayList _tempList) {
         this.mInflater = LayoutInflater.from(context);
-        this.owner = _owner;
+        this.tempList = _tempList;
     }
 
     // inflates the row layout from xml when needed
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DisplayCustomerAppointmentListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
-        return new ViewHolder(view);
+        return new DisplayCustomerAppointmentListAdapter.ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //String category = allReminders.getCategory(position).toString();
-        int month = owner.getAppointmentDateList().get(position).get(Calendar.MONTH);
-        int day = owner.getAppointmentDateList().get(position).get(Calendar.DAY_OF_MONTH);
-        int year = owner.getAppointmentDateList().get(position).get(Calendar.YEAR);
-        String customerName = owner.getAppointmentCustList().get(position).getCustomerName();
-
-        String str = "You have an appointment with "+customerName+" on "+month+"/"+day+"/"+year+".";
+        int month = tempList.get(position).get(Calendar.MONTH);
+        int day = tempList.get(position).get(Calendar.DAY_OF_MONTH);
+        int year = tempList.get(position).get(Calendar.YEAR);
+        String str = "You have an appointment on " + month + "/" + day + "/" + year + ".";
         holder.myTextView.setText(str);
     }
 
@@ -46,7 +43,7 @@ public class DisplayOwnerAppointmentListAdapter extends RecyclerView.Adapter<Dis
     @Override
     public int getItemCount() {
         //return allReminders.getCategories().size();
-        return owner.getAppointmentCustList().size();
+        return tempList.size();
     }
 
 
@@ -68,8 +65,11 @@ public class DisplayOwnerAppointmentListAdapter extends RecyclerView.Adapter<Dis
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        //return allReminders.getCategory(id).toString();
-        return owner.getAppointmentCustList().get(id).getCustomerName();
+        int month = tempList.get(id).get(Calendar.WEEK_OF_MONTH);
+        int day = tempList.get(id).get(Calendar.DAY_OF_MONTH);
+        int year = tempList.get(id).get(Calendar.YEAR);
+        String str = month + "/" + day + "/" + year;
+        return str;
     }
 
     // allows clicks events to be caught

@@ -30,6 +30,7 @@ public class Customer implements Serializable {
         credit = 0;
         msgBox = new ArrayList<>();
         announcement = "None";
+        business.addCustomer(this);
     }
 
     public String getAnnouncement() {

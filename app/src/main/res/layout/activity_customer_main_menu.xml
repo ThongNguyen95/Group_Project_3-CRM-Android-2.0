@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/announce_content"
+            android:id="@+id/customer_menu_announcement_content"
             android:layout_width="match_parent"
             android:layout_height="81dp" />
 
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
 
                     android:layout_height="50dp"
-                    android:text="Manage Appointment" />
+                    android:text="View Appointment" />
 
                 <Button
                     android:id="@+id/manage_credits"

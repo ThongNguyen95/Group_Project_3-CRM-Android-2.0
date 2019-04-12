@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DisplayCustomerListActivity"></activity>
+        <activity android:name=".DisplayCustomerAppointmentListActivity"></activity>
+        <activity android:name=".AnnouncementActivity" />
         <activity
             android:name=".DisplayOwnerAppointmentListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
