@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.IOException;
 import Model.AllUsers;
 import Model.Owner;
@@ -18,7 +20,9 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
     private static final int ZERO_ACTIVITY_REQUEST_CODE = 0;
     private static final int APPT_ACTIVITY_REQUEST_CODE = 1;
     private static final int ANNOUNCE_ACTIVITY_REQUEST_CODE = 2;
+    private static final int CREDIT_ACTIVITY_REQUEST_CODE = 3;
     AllUsers allUsers;
+    String ownerID;
     Owner owner;
 
     //Toggles for display
@@ -37,7 +41,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         allUsers = (AllUsers) intent.getSerializableExtra("AllUsers");
-        final String ownerID = intent.getStringExtra("ownerID");
+        ownerID = intent.getStringExtra("ownerID");
         owner = allUsers.getOwnerBasedOnID(ownerID);
 
         //Display Info
@@ -52,9 +56,6 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
             textCredit.setText(Double.toString(owner.getCredit()));
         }
 
-        TextView textView = findViewById(R.id.owner_credits);
-        textView.setText(Double.toString(owner.getCredit()));
-
         //Display Announcement
         textAnnounce = findViewById(R.id.owner_menu_announcement_content);
         textAnnounce.setText(owner.getAnnouncement());
@@ -68,7 +69,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 //send string id via intent so credit activity can get either customer or owner
                 intent.putExtra("id", owner.getID());
                 intent.putExtra("AllUsers", allUsers);
-                startActivity(intent);
+                startActivityForResult(intent, CREDIT_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -189,7 +190,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
         if (requestCode == ANNOUNCE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
-                String ownerID = data.getStringExtra("OwnerID");
+                ownerID = data.getStringExtra("OwnerID");
                 owner = allUsers.getOwnerBasedOnID(ownerID);
                 textAnnounce.setText(owner.getAnnouncement());
                 //Save the data
@@ -197,6 +198,27 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                     writeToFile(OwnerMainMenuActivity.this,allUsers);
                 } catch (IOException e) {
                     e.getStackTrace();
+                }
+            }
+        }
+
+        if (requestCode == CREDIT_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+                owner = allUsers.getOwnerBasedOnID(ownerID);
+
+                //Save the data
+                try {
+                    writeToFile(OwnerMainMenuActivity.this,allUsers);
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
+                String temp = Double.toString(owner.getCredit());
+                Toast.makeText(OwnerMainMenuActivity.this,temp,Toast.LENGTH_LONG).show();
+                //Reload data display
+                if (dCredit) {
+                    textCredit.setText(Double.toString(owner.getCredit()));
                 }
             }
         }
