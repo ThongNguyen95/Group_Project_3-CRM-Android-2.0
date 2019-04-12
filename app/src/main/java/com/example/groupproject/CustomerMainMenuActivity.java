@@ -103,7 +103,11 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers)data.getSerializableExtra("AllUsers");
+/*              ORIGINAL CODE
                 customer = (Customer)data.getSerializableExtra("customer");
+*/
+                String customerID = (String)data.getSerializableExtra( "CustomerID" );
+                customer = allUsers.getCustomerBasedOnID( customerID );
                 TextView textView = findViewById(R.id.customer_credits);
                 textView.setText(Double.toString(customer.getCredit()));
             }
