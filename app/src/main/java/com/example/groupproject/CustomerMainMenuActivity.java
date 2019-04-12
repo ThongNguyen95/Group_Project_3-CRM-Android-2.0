@@ -46,7 +46,7 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
                 //send string id via intent so credit activity can get either customer or owner
                 intent.putExtra("id",customer.getID());
                 intent.putExtra("AllUsers",allUsers);
-                startActivity(intent);
+                startActivityForResult(intent,SECOND_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -99,6 +99,8 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers)data.getSerializableExtra("AllUsers");
                 customer = (Customer)data.getSerializableExtra("customer");
+                TextView textView = findViewById(R.id.customer_credits);
+                textView.setText(Double.toString(customer.getCredit()));
             }
         }
 

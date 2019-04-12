@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".DisplayCustomerListActivity"></activity>
         <activity
             android:name=".DisplayOwnerAppointmentListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DeleteCustomerAccountActivity"></activity>
+        <activity android:name=".DeleteCustomerAccountActivity" />
         <activity android:name=".DeleteOwnerAccountActivity" />
         <activity android:name=".ChangeCustomerPasswordActivity" />
         <activity android:name=".ManageCustomerAccountActivity" />
         <activity android:name=".ChangeOwnerPasswordActivity" />
         <activity android:name=".ManageOwnerAccountActivity" />
-        <activity android:name=".SettingsMenu"></activity>
+        <activity android:name=".SettingsMenu" />
         <activity android:name=".AddAppointmentActivity" />
         <activity android:name=".CreditActivity" />
         <activity android:name=".CustomerMainMenuActivity" />
