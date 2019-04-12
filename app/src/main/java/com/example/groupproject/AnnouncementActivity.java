@@ -41,7 +41,6 @@ public class AnnouncementActivity extends AppCompatActivity {
                 String announcement = date + " " + editAnnounce.getEditableText().toString();
                 owner.setAnnouncement(announcement);
                 intent.putExtra("AllUsers", allUsers);
-                intent.putExtra("OwnerID", ownerID);
                 setResult(RESULT_OK, intent);
                 finish();
 
