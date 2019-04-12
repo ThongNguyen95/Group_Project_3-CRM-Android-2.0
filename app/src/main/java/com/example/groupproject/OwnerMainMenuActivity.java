@@ -206,7 +206,6 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
                 owner = allUsers.getOwnerBasedOnID(ownerID);
-
                 //Save the data
                 try {
                     writeToFile(OwnerMainMenuActivity.this,allUsers);

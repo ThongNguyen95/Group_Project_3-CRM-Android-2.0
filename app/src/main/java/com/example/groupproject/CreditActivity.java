@@ -165,13 +165,62 @@ public class CreditActivity extends AppCompatActivity {
         }
         }); //end of withdraw
 
-       /* Button send = findViewById(R.id.send_but);
+        Button send = findViewById(R.id.send_but);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(owner != null) //acting as owner
+                {
+                    Intent custIntent = new Intent(CreditActivity.this,DisplayCustomerListActivity.class);
+                    custIntent.putExtra("ownerid", owner.getID());
+                    custIntent.putExtra("AllUsers", allUsers);
+                    startActivity(custIntent);
+                }
+                else // acting as customer
+                {
+                    Toast.makeText(v.getContext(), "Sending to " + customer.getBus().getCompanyName(),Toast.LENGTH_LONG).show();
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(context);
+                    View promptsView = li.inflate(R.layout.popup, null);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+                    final EditText userInput = (EditText) promptsView
+                            .findViewById(R.id.editTextDialogUserInput);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            // get user input and set it to result
+                                            // edit text
+                                            result.setText(userInput.getText());
+                                            amount = Double.parseDouble(result.getText().toString());
+                                                customer.subCredit(amount);
+                                                TextView textView = (TextView) findViewById(R.id.credit_num);
+                                                textView.setText(Double.toString(customer.getCredit()));
+                                                Owner tempowner = customer.getBus();
+                                                tempowner.addCredit(amount);
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+                }
             }
-        }); //end of send for owner*/
+        });
+
+
+
 
         //return button
         Button butCancel = findViewById(R.id.return_but);
@@ -182,9 +231,19 @@ public class CreditActivity extends AppCompatActivity {
                 /*Intent intent1 = new Intent(CreditActivity.this,OwnerMainMenuActivity.class);
                 intent1.putExtra("AllUsers", allUsers);
                 if(owner != null)
+                {
+                    intent1 = new Intent(CreditActivity.this,OwnerMainMenuActivity.class);
+                    intent1.putExtra("AllUsers", allUsers);
                     intent1.putExtra("ownerID", owner.getID());
+
+                }
+
                 else
+                {
+                    intent1 = new Intent(CreditActivity.this,CustomerMainMenuActivity.class);
+                    intent1.putExtra("AllUsers", allUsers);
                     intent1.putExtra("customer",customer);
+                }
                 setResult(RESULT_OK, intent1);
                 startActivityForResult(intent1,SECOND_ACTIVITY_REQUEST_CODE);
                 finish();*/
