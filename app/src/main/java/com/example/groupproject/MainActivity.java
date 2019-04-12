@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     if (isSignin) {
                         // if sucessfully sing in, go to owner main menu
                         Intent intent = new Intent(MainActivity.this, CustomerMainMenuActivity.class);
-                        intent.putExtra("customer",customer);
+                        intent.putExtra("customerID",customer.getID());
                         intent.putExtra("AllUsers",allUsers);
                         startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                     }
