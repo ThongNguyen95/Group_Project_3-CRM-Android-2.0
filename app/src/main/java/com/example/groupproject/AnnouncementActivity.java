@@ -26,26 +26,7 @@ public class AnnouncementActivity extends AppCompatActivity {
         owner = allUsers.getOwnerBasedOnID(ownerID);
 
         //Get today date
-        Calendar today = new GregorianCalendar();
-        int hour = today.get(Calendar.HOUR_OF_DAY);
-        int min = today.get(Calendar.MINUTE);
-        int day = today.get(Calendar.DAY_OF_MONTH);
-        int month = today.get(Calendar.MONTH);
-        int year = today.get(Calendar.YEAR);
-
-        StringBuilder stringBuild = new StringBuilder();
-        stringBuild.append("(");
-        stringBuild.append(month + 1);
-        stringBuild.append("/");
-        stringBuild.append(day);
-        stringBuild.append("/");
-        stringBuild.append(year);
-        stringBuild.append(" ");
-        stringBuild.append(hour);
-        stringBuild.append(":");
-        stringBuild.append(min);
-        stringBuild.append(")");
-        final String date = stringBuild.toString();
+        final String date = this.setupAnnouncementTime();
 
         final TextView textDate = findViewById(R.id.text_date);
         textDate.append(" ");
@@ -75,5 +56,29 @@ public class AnnouncementActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public String setupAnnouncementTime() {
+        Calendar today = new GregorianCalendar();
+        int hour = today.get(Calendar.HOUR_OF_DAY);
+        int min = today.get(Calendar.MINUTE);
+        int day = today.get(Calendar.DAY_OF_MONTH);
+        int month = today.get(Calendar.MONTH);
+        int year = today.get(Calendar.YEAR);
+
+        StringBuilder stringBuild = new StringBuilder();
+        stringBuild.append("(");
+        stringBuild.append(month + 1);
+        stringBuild.append("/");
+        stringBuild.append(day);
+        stringBuild.append("/");
+        stringBuild.append(year);
+        stringBuild.append(" ");
+        stringBuild.append(hour);
+        stringBuild.append(":");
+        stringBuild.append(min);
+        stringBuild.append(")");
+
+        return stringBuild.toString();
     }
 }
