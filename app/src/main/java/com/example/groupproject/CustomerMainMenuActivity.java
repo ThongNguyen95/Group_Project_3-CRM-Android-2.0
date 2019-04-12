@@ -71,17 +71,17 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
 
 
         // view appointment
-        /*Button viewApts = findViewById(R.id.viewapts);
+        Button viewApts = findViewById(R.id.viewapts);
         viewApts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CustomerMainMenuActivity.this, DisplayCustomerAppointmentListActivity.class);
                 //send string id via intent so credit activity can get either customer or owner
-                intent.putExtra("customer",customer);
+                intent.putExtra("customerID",customer.getID());
                 intent.putExtra("AllUsers",allUsers);
                 startActivity(intent);
             }
-        });*/
+        });
 
         Button manAccount = findViewById(R.id.manage_customer_account);
         manAccount.setOnClickListener(new View.OnClickListener() {
