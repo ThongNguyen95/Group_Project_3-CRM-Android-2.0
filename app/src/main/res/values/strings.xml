@@ -3,4 +3,5 @@
     <string name="title_activity_display_owner_appointment_list">
         DisplayOwnerAppointmentListActivity
     </string>
+    <string name="title_activity_forgot_password_menu">ForgotPasswordMenuActivity</string>
 </resources>
