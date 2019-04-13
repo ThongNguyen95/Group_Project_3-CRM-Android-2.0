@@ -22,6 +22,10 @@ public class DisplayCustomerAppointmentListAdapter extends RecyclerView.Adapter<
         this.tempList = _tempList;
     }
 
+    public void updateList(ArrayList<Calendar> _list){
+        tempList = _list;
+    }
+
     // inflates the row layout from xml when needed
     @Override
     public DisplayCustomerAppointmentListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
