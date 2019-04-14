@@ -118,9 +118,30 @@
             android:hint="Enter associated business name here"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SiteKey Challenge Questions"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/security_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/spinner_style" />
+
+        <EditText
+            android:id="@+id/edit_sitekey_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Your SiteKey answer"
+            android:inputType="textPersonName" />
+
         <Space
             android:layout_width="match_parent"
-            android:layout_height="43dp" />
+            android:layout_height="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

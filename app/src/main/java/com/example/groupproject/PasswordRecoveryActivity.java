@@ -65,88 +65,89 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
 
                 if (owner != null && customer == null)
                 {
-//                    //owner
-//                    //check the answer of user sitekey answer
-//                    boolean userpassword = allUsers.GetOwnerPassword(userid,checkanswer);
-//                    //if user successfully answer sitekey question
-//                    if(userpassword)
-//                    {
-//                        //display hiding layout and let the user to set new password
-//                        tohidelayout.setVisibility(LinearLayout.VISIBLE);
-//                        setnewpasswordforlogin.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                String usernewpass = SetNewpassword.getText().toString();
-//                                String userconfirmnewpass = Confirmnewpassword.getText().toString();
-//                                boolean isnewpassset = allUsers.SetOwnerNewPassword(usernewpass,userconfirmnewpass,userid);
-//                                if(isnewpassset)
-//                                {
-//                                    //write new password to the file
-//                                    try {
-//                                        writeToFile(context,allUsers);
-//                                    } catch (IOException e) {
-//                                        e.getStackTrace();
-//                                    }
-//                                    //as user change password, application force user to log out and send the user to main activity to signing in.
-//                                    Intent i = new Intent(getBaseContext(), MainActivity.class);
-//                                    i.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-//                                    startActivity(i);
-//                                }
-//                                else
-//                                {
-//                                    //won't let change password if user doesn't put same password, new password and confirm password
-//                                    Toast.makeText(getBaseContext(),"Your New Password Doesn't match",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//                    }
-//                    else
-//                    {
-//                        Toast.makeText(getBaseContext(),"Your SiteKey Challenge Answer is wrong",Toast.LENGTH_SHORT).show();
-//                    }
+                    //owner
+                    //check the answer of user sitekey answer
+                    boolean userpassword = allUsers.GetOwnerPassword(userid,checkanswer);
+                    //if user successfully answer sitekey question
+                    if(userpassword)
+                    {
+                        //display hiding layout and let the user to set new password
+                        tohidelayout.setVisibility(LinearLayout.VISIBLE);
+                        setnewpasswordforlogin.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String usernewpass = SetNewpassword.getText().toString();
+                                String userconfirmnewpass = Confirmnewpassword.getText().toString();
+                                boolean isnewpassset = allUsers.SetOwnerNewPassword(usernewpass,userconfirmnewpass,userid);
+                                if(isnewpassset)
+                                {
+                                    //write new password to the file
+                                    try {
+                                        writeToFile(context,allUsers);
+                                    } catch (IOException e) {
+                                        e.getStackTrace();
+                                    }
+                                    //as user change password, application force user to log out and send the user to main activity to signing in.
+                                    Intent i = new Intent(getBaseContext(), MainActivity.class);
+                                    i.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                }
+                                else
+                                {
+                                    //won't let change password if user doesn't put same password, new password and confirm password
+                                    Toast.makeText(getBaseContext(),"Your New Password Doesn't match",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        tohidelayout.setVisibility(LinearLayout.GONE);
+                        Toast.makeText(getBaseContext(),"Your SiteKey Challenge Answer is wrong",Toast.LENGTH_SHORT).show();
+                    }
 
                 } else if (customer != null && owner == null)
                 {
                     //for customer
-//                    boolean userpassword = allUsers.GetCustomerPassword(userid,checkanswer);
-//                    if(userpassword)
-//                    {
-//                        //display hiding layout and let the user to set new password
-//                        tohidelayout.setVisibility(LinearLayout.VISIBLE);
-//                        setnewpasswordforlogin.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                String usernewpass = SetNewpassword.getText().toString();
-//                                String userconfirmnewpass = Confirmnewpassword.getText().toString();
-//                                boolean isnewpassset = allUsers.SetCustomerNewPassword(usernewpass,userconfirmnewpass,userid);
-//                                if(isnewpassset)
-//                                {
-//                                    try {
-//                                        writeToFile(context,allUsers);
-//                                    } catch (IOException e) {
-//                                        e.getStackTrace();
-//                                    }
-//                                    //as user change password, application force user to log out and send the user to main activity to signing in.
-//                                    Intent i = new Intent(getBaseContext(), MainActivity.class);
-//                                    i.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-//                                    startActivity(i);
-//                                }
-//                                else
-//                                {
-//                                    Toast.makeText(getBaseContext(),"Your New Password Doesn't match",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//                    }
-//                    else
-//                    {
-//                        Toast.makeText(getBaseContext(),"Your SiteKey Challenge Answer is wrong",Toast.LENGTH_SHORT).show();
-//                    }
+                    boolean userpassword = allUsers.GetCustomerPassword(userid,checkanswer);
+                    if(userpassword)
+                    {
+                        //display hiding layout and let the user to set new password
+                        tohidelayout.setVisibility(LinearLayout.VISIBLE);
+                        setnewpasswordforlogin.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String usernewpass = SetNewpassword.getText().toString();
+                                String userconfirmnewpass = Confirmnewpassword.getText().toString();
+                                boolean isnewpassset = allUsers.SetCustomerNewPassword(usernewpass,userconfirmnewpass,userid);
+                                if(isnewpassset)
+                                {
+                                    try {
+                                        writeToFile(context,allUsers);
+                                    } catch (IOException e) {
+                                        e.getStackTrace();
+                                    }
+                                    //as user change password, application force user to log out and send the user to main activity to signing in.
+                                    Intent i = new Intent(getBaseContext(), MainActivity.class);
+                                    i.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getBaseContext(),"Your New Password Doesn't match",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        tohidelayout.setVisibility(LinearLayout.GONE);
+                        Toast.makeText(getBaseContext(),"Your SiteKey Challenge Answer is wrong",Toast.LENGTH_SHORT).show();
+                    }
                 }
-          }
-       });
+            }
+        });
 
 
     }
 }
-
