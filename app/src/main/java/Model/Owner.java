@@ -18,6 +18,8 @@ public class Owner implements Serializable {
     private String id;
     private String password;
     private String companyName;
+    private String SecurityQuiz;
+    private String SecurityAnswer;
     private double credit;
     private final ArrayList<Customer> customers; //customer list from
     private ArrayList<Message> msgBox;
@@ -31,12 +33,14 @@ public class Owner implements Serializable {
     private boolean dName;
     private boolean dCredit;
 
-    public Owner(String myid, String mypass, String mycomp,double mycredit)
+    public Owner(String myid, String mypass, String mycomp,double mycredit, String SecuQuiz, String SecuAns)
     {
         id = myid;
         password = mypass;
         companyName = mycomp;
         credit = mycredit;
+        SecurityQuiz= SecuQuiz;
+        SecurityAnswer= SecuAns;
         customers = new ArrayList<>();
         msgBox = new ArrayList<>();
         
@@ -66,6 +70,8 @@ public class Owner implements Serializable {
     public void setdName(boolean _val) {dName = _val;}
     public boolean getdCredit() {return dCredit;}
     public void setdCredit(boolean _val) {dCredit = _val;}
+    public String getSecurityQuiz(){return SecurityQuiz;}
+    public String getSecurityAnswer() {return SecurityAnswer;}
 
     public void viewCustomers()
     {

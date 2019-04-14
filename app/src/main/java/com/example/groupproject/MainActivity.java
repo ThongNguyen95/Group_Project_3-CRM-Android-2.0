@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import Controller.SignIn;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ZERO_ACTIVITY_REQUEST_CODE = 0;
     private Button butSignIn;
     private Button butSignUp;
+    private TextView forgottext;
     private AllUsers allUsers;
     private EditText userID,password; // user input for signin
 
@@ -39,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
         } catch (ClassNotFoundException | IOException o) {
             allUsers = new AllUsers();
         }
+
+
+
+        forgottext =findViewById(R.id.forgotPassword);
+        forgottext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ForgotPasswordMenuActivity.class);
+                intent.putExtra("AllUsers", allUsers);
+                startActivity(intent);
+            }
+        });
+
 
         // get data from edit text
         userID = findViewById(R.id.user_name);
