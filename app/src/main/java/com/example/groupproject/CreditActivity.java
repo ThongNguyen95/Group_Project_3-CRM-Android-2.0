@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,20 +13,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import Model.AllUsers;
 import Model.Customer;
 import Model.Owner;
-
-import static Controller.IO.writeToFile;
 
 public class CreditActivity extends AppCompatActivity {
     AllUsers allUsers;
     Customer customer;
     Owner owner;
     double amount;
-    private int SECOND_ACTIVITY_REQUEST_CODE = 2;
+    private int CREDIT_ACTIVITY_REQUEST_CODE = 3;
+    private int SEND_ACTIVITY_REQUEST_CODE = 4;
 
 
     @Override
@@ -165,16 +160,16 @@ public class CreditActivity extends AppCompatActivity {
         }
         }); //end of withdraw
 
-        Button send = findViewById(R.id.send_but);
+        Button send = findViewById(R.id.send_but); //beginning of send
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(owner != null) //acting as owner
                 {
-                    Intent custIntent = new Intent(CreditActivity.this,DisplayCustomerListActivity.class);
-                    custIntent.putExtra("ownerid", owner.getID());
-                    custIntent.putExtra("AllUsers", allUsers);
-                    startActivity(custIntent);
+                    Intent sendIntent = new Intent(CreditActivity.this, DisplayCustomerListActivity.class);
+                    sendIntent.putExtra("ownerid", owner.getID());
+                    sendIntent.putExtra("AllUsers", allUsers);
+                    startActivityForResult(sendIntent,SEND_ACTIVITY_REQUEST_CODE);
                 }
                 else // acting as customer
                 {
@@ -249,9 +244,30 @@ public class CreditActivity extends AppCompatActivity {
                 finish();*/
 
                 intent.putExtra("AllUsers", allUsers);
+                if(owner != null)
+                    intent.putExtra("OwnerID",owner.getID());
+                else
+                    intent.putExtra("CustomerID",customer.getID());
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SEND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+                String ownerID = data.getStringExtra("OwnerID");
+                owner = allUsers.getOwnerBasedOnID(ownerID);
+                String temp = Double.toString(owner.getCredit());
+                TextView textCredit = (TextView) findViewById(R.id.credit_num);
+                textCredit.setText(Double.toString(owner.getCredit()));
+
+            }
+        }
+
+
     }
 }

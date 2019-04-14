@@ -204,6 +204,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
         if (requestCode == CREDIT_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+                ownerID = data.getStringExtra("OwnerID");
                 owner = allUsers.getOwnerBasedOnID(ownerID);
                 //Save the data
                 try {
