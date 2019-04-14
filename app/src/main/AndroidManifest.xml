@@ -12,8 +12,6 @@
         <activity android:name=".RemoveAppointmentActivity"></activity>
         <activity android:name=".DisplayCustomerListActivity" />
         <activity android:name=".DisplayCustomerAppointmentListActivity" />
-        <activity android:name=".PasswordRecoveryActivity"></activity>
-        <activity android:name=".ForgotPasswordMenuActivity" />
         <activity android:name=".AnnouncementActivity" />
         <activity
             android:name=".DisplayOwnerAppointmentListActivity"

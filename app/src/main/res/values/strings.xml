@@ -3,12 +3,5 @@
     <string name="title_activity_display_owner_appointment_list">
         DisplayOwnerAppointmentListActivity
     </string>
-    <string name="forgot"><b>Forgot Password</b></string>
-    <string-array name="SiteKey_Challenge_Question">
-        <item><b>In what city were you born?</b></item>
-        <item><b>What was the name of first pet?</b></item>
-        <item><b>What is the name of your first employer?</b></item>
-        <item><b>What high school did you attend?</b></item>
-        <item><b>In what city was your mother born?</b></item>
-    </string-array>
+    <string name="title_activity_forgot_password_menu">ForgotPasswordMenuActivity</string>
 </resources>
