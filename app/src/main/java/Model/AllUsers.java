@@ -219,4 +219,73 @@ public class AllUsers implements Serializable {
         //find index
         for (int i = 0; i < owners.size(); i++) {}
     }
+
+    public String ForgotOwnerPassword(String username){
+        for(Owner owner: owners){
+            if(owner.getID().equals(username))
+            {
+                return owner.getSecurityQuiz();
+            }
+        }
+        return null;
+    }
+
+    public String ForgotCustomerPassword(String username){
+        for(Customer customer: customers){
+            if(customer.getID().equals(username))
+            {
+                return customer.getSecurityQuiz();
+            }
+        }
+        return null;
+    }
+
+    public Boolean GetOwnerPassword(String username,String QuizAnswer){
+        for(Owner owner: owners){
+            if(owner.getID().equals(username) && owner.getSecurityAnswer().equals(QuizAnswer))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        return false;
+    }
+
+    public Boolean GetCustomerPassword(String username,String QuizAnswer){
+        for(Customer customer: customers){
+            if(customer.getID().equals(username) && customer.getSecurityAnswer().equals(QuizAnswer))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        return false;
+    }
+
+    public Boolean SetOwnerNewPassword(String password, String confirmpass,String username)
+    {
+        for(Owner owner: owners){
+            if(owner.getID().equals(username) && confirmpass.equals(password))
+            {
+                owner.setPassword(password);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean SetCustomerNewPassword(String password, String confirmpass,String username)
+    {
+        for(Customer customer: customers){
+            if(customer.getID().equals(username) && confirmpass.equals(password))
+            {
+                customer.setPassword(password);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

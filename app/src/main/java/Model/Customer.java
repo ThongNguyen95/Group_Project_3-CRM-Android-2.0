@@ -16,17 +16,21 @@ public class Customer implements Serializable {
     private String id;
     private String password;
     private String customerName;
+    private String SecurityQuiz;
+    private String SecurityAnswer;
     private Owner business;
     private double credit;
     private ArrayList<Message> msgBox;
     private String announcement;
 
-    public Customer(String myid, String mypassword, String mycustomerName, Owner _bus)
+    public Customer(String myid, String mypassword, String mycustomerName, Owner _bus, String secuQuiz, String secuAns)
     {
         id = myid;
         password = mypassword;
         customerName = mycustomerName;
         business = _bus;
+        SecurityQuiz = secuQuiz;
+        SecurityAnswer = secuAns;
         credit = 0;
         msgBox = new ArrayList<>();
         announcement = "None";
@@ -62,6 +66,8 @@ public class Customer implements Serializable {
     {
         return customerName;
     }
+    public String getSecurityQuiz(){return SecurityQuiz;}
+    public String getSecurityAnswer() {return SecurityAnswer;}
     public void setBusiness(Owner _bus)
     {
         business = _bus;
