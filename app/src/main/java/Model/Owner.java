@@ -21,7 +21,7 @@ public class Owner implements Serializable {
     private String SecurityQuiz;
     private String SecurityAnswer;
     private double credit;
-    private final ArrayList<Customer> customers;
+    private final ArrayList<Customer> customers; //customer list from
     private ArrayList<Message> msgBox;
     
     private  ArrayList<Calendar> cal;

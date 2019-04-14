@@ -3,7 +3,7 @@
     <string name="title_activity_display_owner_appointment_list">
         DisplayOwnerAppointmentListActivity
     </string>
-    <string name="forgot"><b>Forgot Password</b></string>
+    <string name="forgot"><b>Forgot Password?</b></string>
     <string-array name="SiteKey_Challenge_Question">
         <item><b>In what city were you born?</b></item>
         <item><b>What was the name of first pet?</b></item>
