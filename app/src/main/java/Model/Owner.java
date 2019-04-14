@@ -86,6 +86,10 @@ public class Owner implements Serializable {
         cal.add(_cal);
         appCust.add(_cust);
     }
+    public void removeAppointment(Calendar _cal,Customer _cust){
+        cal.remove(_cal);
+        appCust.remove(_cust);
+    }
     public int getaptssize () {
         return appCust.size();
     }
