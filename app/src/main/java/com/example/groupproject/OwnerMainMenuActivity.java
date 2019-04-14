@@ -17,7 +17,7 @@ import static Controller.IO.writeToFile;
 
 
 public class OwnerMainMenuActivity extends AppCompatActivity {
-    private static final int ZERO_ACTIVITY_REQUEST_CODE = 0;
+    private static final int DISPLAY_ACTIVITY_REQUEST_CODE = 0;
     private static final int APPT_ACTIVITY_REQUEST_CODE = 1;
     private static final int ANNOUNCE_ACTIVITY_REQUEST_CODE = 2;
     private static final int CREDIT_ACTIVITY_REQUEST_CODE = 3;
@@ -82,7 +82,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(OwnerMainMenuActivity.this, SettingsMenu.class);
                 intent.putExtra("dName", dName);
                 intent.putExtra("dCredit", dCredit);
-                startActivityForResult(intent, ZERO_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, DISPLAY_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -158,7 +158,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
             }
         }
-        if (requestCode == ZERO_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == DISPLAY_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 //Get data
                 dName = data.getBooleanExtra("dName", false);
@@ -190,7 +190,6 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
         if (requestCode == ANNOUNCE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
-                ownerID = data.getStringExtra("OwnerID");
                 owner = allUsers.getOwnerBasedOnID(ownerID);
                 textAnnounce.setText(owner.getAnnouncement());
                 //Save the data
@@ -205,6 +204,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
         if (requestCode == CREDIT_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+                ownerID = data.getStringExtra("OwnerID");
                 owner = allUsers.getOwnerBasedOnID(ownerID);
                 //Save the data
                 try {

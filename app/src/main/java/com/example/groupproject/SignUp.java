@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,7 +21,6 @@ import static Controller.IO.writeToFile;
 
 public class SignUp extends AppCompatActivity {
     AllUsers allUsers;
-    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +40,6 @@ public class SignUp extends AppCompatActivity {
         final EditText editID = findViewById(R.id.edit_id);
         final EditText editPW = findViewById(R.id.edit_pw);
         final EditText editAssociate = findViewById(R.id.edit_associate);
-        final EditText editAns = findViewById(R.id.edit_sitekey_answer);
-
-        spinner = (Spinner)findViewById(R.id.security_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-                .createFromResource(this, R.array.SiteKey_Challenge_Question,
-                        android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        staticAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner.setAdapter(staticAdapter);
 
         //confirm button
         Button butConfirm = findViewById(R.id.confirm);
@@ -67,15 +50,12 @@ public class SignUp extends AppCompatActivity {
                 String id = editID.getEditableText().toString();
                 String pw = editPW.getEditableText().toString();
                 String as = editAssociate.getEditableText().toString();
-                String quiz = spinner.getSelectedItem().toString();
-                String ans = editAns.getEditableText().toString();
-
                 int selected = radGroup.getCheckedRadioButtonId();
                 RetObject retValue = null;
                 if (selected == radOwner.getId()) {
-                    retValue = signUpAsOwner(name, id, pw,quiz,ans);
+                    retValue = signUpAsOwner(name, id, pw);
                 } else if (selected == radCust.getId()) {
-                    retValue = signUpAsCustomer(name, id, pw,as,quiz,ans);
+                    retValue = signUpAsCustomer(name, id, pw,as);
                 }
 
                 if (retValue == null) {
@@ -110,11 +90,11 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    protected RetObject signUpAsOwner(String _name, String _id, String _pw,String _quiz,String _ans) {
+    protected RetObject signUpAsOwner(String _name, String _id, String _pw) {
         //Check if business already existed
         RetObject ret = new RetObject();
         if (!allUsers.businessExisted(_id, _name).getBool()) {
-            allUsers.addOwner(new Owner(_id,_pw,_name, 0,_quiz,_ans));
+            allUsers.addOwner(new Owner(_id,_pw,_name, 0));
             ret.setBool(true);
             ret.setMsg("Sign up successfully!");
         } else {
@@ -123,7 +103,7 @@ public class SignUp extends AppCompatActivity {
         return ret;
     }
 
-    protected RetObject signUpAsCustomer(String _name, String _id, String _pw, String _aName, String _quiz, String _ans) {
+    protected RetObject signUpAsCustomer(String _name, String _id, String _pw, String _aName) {
         //Check if Customer already existed
         RetObject ret = new RetObject();
         if (!allUsers.customerExisted(_id, _name).getBool()) {
@@ -132,7 +112,7 @@ public class SignUp extends AppCompatActivity {
                 ret.setMsg("Could not find associated company for this account. Try again!");
                 return ret;
             } else {
-                allUsers.addCustomer(new Customer(_id, _pw, _name, owner,_quiz, _ans));
+                allUsers.addCustomer(new Customer(_id, _pw, _name, owner));
                 ret.setBool(true);
                 ret.setMsg("Sign up successfully!");
             }

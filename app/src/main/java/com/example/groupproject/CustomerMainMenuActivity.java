@@ -8,13 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+
 import Model.AllUsers;
 import Model.Customer;
+
+import static Controller.IO.writeToFile;
 
 public class CustomerMainMenuActivity extends AppCompatActivity {
 
     AllUsers allUsers;
     Customer customer;
+    String customerID;
     private int SECOND_ACTIVITY_REQUEST_CODE = 2;
 
     @Override
@@ -24,7 +30,8 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         allUsers = (AllUsers)intent.getSerializableExtra("AllUsers");
-        customer = (Customer) intent.getSerializableExtra("customer");
+        customerID = intent.getStringExtra("customerID");
+        customer = allUsers.getCustomerBasedOnID(customerID);
         final Context context = this;
 
         //Display customer and business name
@@ -49,7 +56,7 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CustomerMainMenuActivity.this, CreditActivity.class);
                 //send string id via intent so credit activity can get either customer or owner
-                intent.putExtra("id",customer.getID());
+                intent.putExtra("id",customerID);
                 intent.putExtra("AllUsers",allUsers);
                 startActivityForResult(intent,SECOND_ACTIVITY_REQUEST_CODE);
             }
@@ -103,7 +110,14 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers)data.getSerializableExtra("AllUsers");
-                customer = (Customer)data.getSerializableExtra("customer");
+                customer = allUsers.getCustomerBasedOnID(customerID);
+                //Save the data
+                try {
+                    writeToFile( CustomerMainMenuActivity.this,allUsers);
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
                 TextView textView = findViewById(R.id.customer_credits);
                 textView.setText(Double.toString(customer.getCredit()));
             }

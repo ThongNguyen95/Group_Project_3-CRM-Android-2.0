@@ -26,6 +26,38 @@ public class AnnouncementActivity extends AppCompatActivity {
         owner = allUsers.getOwnerBasedOnID(ownerID);
 
         //Get today date
+        final String date = this.setupAnnouncementTime();
+
+        final TextView textDate = findViewById(R.id.text_date);
+        textDate.append(" ");
+        textDate.append(date);
+
+        //Set message and confirm
+        Button butAdd = findViewById(R.id.but_add);
+        butAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editAnnounce = findViewById(R.id.edit_announce);
+                String announcement = date + " " + editAnnounce.getEditableText().toString();
+                owner.setAnnouncement(announcement);
+                intent.putExtra("AllUsers", allUsers);
+                setResult(RESULT_OK, intent);
+                finish();
+
+            }
+        });
+
+        //Cancel
+        Button butCancel = findViewById(R.id.but_cancel);
+        butCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    public String setupAnnouncementTime() {
         Calendar today = new GregorianCalendar();
         int hour = today.get(Calendar.HOUR_OF_DAY);
         int min = today.get(Calendar.MINUTE);
@@ -45,35 +77,7 @@ public class AnnouncementActivity extends AppCompatActivity {
         stringBuild.append(":");
         stringBuild.append(min);
         stringBuild.append(")");
-        final String date = stringBuild.toString();
 
-        final TextView textDate = findViewById(R.id.text_date);
-        textDate.append(" ");
-        textDate.append(date);
-
-        //Set message and confirm
-        Button butAdd = findViewById(R.id.but_add);
-        butAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText editAnnounce = findViewById(R.id.edit_announce);
-                String announcement = date + " " + editAnnounce.getEditableText().toString();
-                owner.setAnnouncement(announcement);
-                intent.putExtra("AllUsers", allUsers);
-                intent.putExtra("OwnerID", ownerID);
-                setResult(RESULT_OK, intent);
-                finish();
-
-            }
-        });
-
-        //Cancel
-        Button butCancel = findViewById(R.id.but_cancel);
-        butCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        return stringBuild.toString();
     }
 }

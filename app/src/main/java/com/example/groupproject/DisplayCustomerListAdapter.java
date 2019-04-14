@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import Model.Customer;
 import Model.Owner;
 
 public class DisplayCustomerListAdapter extends RecyclerView.Adapter<DisplayCustomerListAdapter.ViewHolder> {
@@ -60,9 +61,9 @@ public class DisplayCustomerListAdapter extends RecyclerView.Adapter<DisplayCust
     }
 
     // convenience method for getting data at click position
-    String getItem(int id) {
+    Customer getItem(int id) {
         //return allReminders.getCategory(id).toString();
-        return owner.getCustomerList().get(id).getCustomerName();
+        return owner.getCustomerList().get(id);
     }
 
     // allows clicks events to be caught

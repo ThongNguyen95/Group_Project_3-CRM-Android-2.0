@@ -38,26 +38,26 @@ public class ForgotPasswordMenuActivity extends AppCompatActivity {
                 {
                     //for owner
                     //getting user SiteKey Challenege question
-                    String retQuiz = allUsers.ForgotOwnerPassword(finduserid);
-                    //Toast.makeText(getBaseContext(),retQuiz,Toast.LENGTH_SHORT).show();
-                    //passing Question, account information and username to password recovery activity
-                    Intent intent = new Intent(ForgotPasswordMenuActivity.this, PasswordRecoveryActivity.class);
-                    intent.putExtra("Question",retQuiz);
-                    intent.putExtra("AllUsers",allUsers);
-                    intent.putExtra("Username",finduserid);
-                    startActivity(intent);
+//                    String retQuiz = allUsers.ForgotOwnerPassword(finduserid);
+//                    //Toast.makeText(getBaseContext(),retQuiz,Toast.LENGTH_SHORT).show();
+//                    //passing Question, account information and username to password recovery activity
+//                    Intent intent = new Intent(ForgotPasswordMenuActivity.this, PasswordRecoveryActivity.class);
+//                    intent.putExtra("Question",retQuiz);
+//                    intent.putExtra("AllUsers",allUsers);
+//                    intent.putExtra("Username",finduserid);
+//                    startActivity(intent);
 
                 } else if (customer != null && owner == null)
                 {
                     //for customer
-                    //getting user Sitekey Challenge question
-                    //Passing Question, account information and username to password recovery activity
-                    String retQuiz = allUsers.ForgotCustomerPassword(finduserid);
-                    Intent intent = new Intent(ForgotPasswordMenuActivity.this, PasswordRecoveryActivity.class);
-                    intent.putExtra("Question",retQuiz);
-                    intent.putExtra("AllUsers",allUsers);
-                    intent.putExtra("Username",finduserid);
-                    startActivity(intent);
+//                    //getting user Sitekey Challenge question
+//                    //Passing Question, account information and username to password recovery activity
+//                    String retQuiz = allUsers.ForgotCustomerPassword(finduserid);
+//                    Intent intent = new Intent(ForgotPasswordMenuActivity.this, PasswordRecoveryActivity.class);
+//                    intent.putExtra("Question",retQuiz);
+//                    intent.putExtra("AllUsers",allUsers);
+//                    intent.putExtra("Username",finduserid);
+//                    startActivity(intent);
 
                 }
                 else {
