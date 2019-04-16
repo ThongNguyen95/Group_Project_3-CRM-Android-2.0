@@ -45,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         final EditText editAssociate = findViewById(R.id.edit_associate);
         final EditText editAns = findViewById(R.id.edit_sitekey_answer);
 
-        spinner = (Spinner)findViewById(R.id.security_spinner);
+        spinner = findViewById(R.id.security_spinner);
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
                 .createFromResource(this, R.array.SiteKey_Challenge_Question,
@@ -70,18 +70,21 @@ public class SignUp extends AppCompatActivity {
                 String quiz = spinner.getSelectedItem().toString();
                 String ans = editAns.getEditableText().toString();
 
-                int selected = radGroup.getCheckedRadioButtonId();
-                RetObject retValue = null;
-                if (selected == radOwner.getId()) {
-                    retValue = signUpAsOwner(name, id, pw,quiz,ans);
-                } else if (selected == radCust.getId()) {
-                    retValue = signUpAsCustomer(name, id, pw,as,quiz,ans);
-                }
-
-                if (retValue == null) {
-                    retValue = new RetObject();
-                    retValue.setMsg("Failed to sign up! Please select one of the sign up options" +
-                            " at the top.");
+                //Check the length of input
+                RetObject retValue = checkLength(name, id, pw, ans);
+                if (retValue.getBool()) {
+                    //Reset retValue
+                    retValue.setBool(false);
+                    // Check selected radio button
+                    int selected = radGroup.getCheckedRadioButtonId();
+                    if (selected == radOwner.getId()) {
+                        retValue = signUpAsOwner(name, id, pw, quiz, ans);
+                    } else if (selected == radCust.getId()) {
+                        retValue = signUpAsCustomer(name, id, pw, as, quiz, ans);
+                    } else {
+                        retValue = new RetObject();
+                        retValue.setMsg("Please select your account type at the top.");
+                    }
                 }
                 //After processing the sign up data
                 Toast.makeText(SignUp.this, retValue.getMsg(), Toast.LENGTH_SHORT).show();
@@ -110,15 +113,39 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+    protected RetObject checkLength(String _name, String _id, String _pw, String _ans) {
+        RetObject ret = new RetObject();
+        if (_name.length() < 4) {
+            ret.setMsg("Name must contain at least 4 characters");
+        } else if (_id.length() < 4) {
+            ret.setMsg("ID must contain at least 4 characters");
+        } else if (_pw.length() < 4) {
+            ret.setMsg("Password must contain at least 4 characters");
+        } else if (_ans.length() < 4) {
+            ret.setMsg("Answer must contain at least 4 characters");
+        } else {
+            ret.setBool(true);
+        }
+        return ret;
+    }
+
     protected RetObject signUpAsOwner(String _name, String _id, String _pw,String _quiz,String _ans) {
         //Check if business already existed
         RetObject ret = new RetObject();
-        if (!allUsers.businessExisted(_id, _name).getBool()) {
+        RetObject temp = allUsers.idExisted(_id);
+        //Check ID
+        if (temp.getBool()) {
+            ret.setMsg(temp.getMsg());
+            return ret;
+        }
+        //Check name
+        temp = allUsers.businessExisted(_name);
+        if (!temp.getBool()) {
             allUsers.addOwner(new Owner(_id,_pw,_name, 0,_quiz,_ans));
             ret.setBool(true);
             ret.setMsg("Sign up successfully!");
         } else {
-            ret.setMsg(allUsers.businessExisted(_id, _name).getMsg());
+            ret.setMsg(temp.getMsg());
         }
         return ret;
     }
@@ -126,7 +153,15 @@ public class SignUp extends AppCompatActivity {
     protected RetObject signUpAsCustomer(String _name, String _id, String _pw, String _aName,String _quiz,String _ans) {
         //Check if Customer already existed
         RetObject ret = new RetObject();
-        if (!allUsers.customerExisted(_id, _name).getBool()) {
+        RetObject temp = allUsers.idExisted(_id);
+        //Check ID
+        if (temp.getBool()) {
+            ret.setMsg(temp.getMsg());
+            return ret;
+        }
+        //Check name
+        temp = allUsers.customerExisted(_name);
+        if (!temp.getBool()) {
             Owner owner = allUsers.getOwnerBasedOnName(_aName);
             if (owner == null) {
                 ret.setMsg("Could not find associated company for this account. Try again!");
@@ -137,7 +172,7 @@ public class SignUp extends AppCompatActivity {
                 ret.setMsg("Sign up successfully!");
             }
         } else {
-            ret.setMsg(allUsers.customerExisted(_id, _name).getMsg());
+            ret.setMsg(temp.getMsg());
         }
         return ret;
     }

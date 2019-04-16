@@ -83,16 +83,29 @@ public class AllUsers implements Serializable {
         }
         return false;
     }
-
-    public RetObject businessExisted(String id, String name) {
+    public RetObject idExisted(String id) {
         //Loop through owners list to see if it is in there
         RetObject ret = new RetObject();
         for (Owner owner : owners) {
             if (owner.getID().equals(id)) {
                 ret.setBool(true);
-                ret.setMsg("Username already existed!");
+                ret.setMsg("Username (ID) already existed!");
                 return ret;
             }
+        }
+        for (Customer cust : customers) {
+            if (cust.getID().equals(id)) {
+                ret.setBool(true);
+                ret.setMsg("Username (ID) already existed!");
+                return ret;
+            }
+        }
+        return ret;
+    }
+    public RetObject businessExisted(String name) {
+        //Loop through owners list to see if it is in there
+        RetObject ret = new RetObject();
+        for (Owner owner : owners) {
             if (owner.getCompanyName().equals(name)) {
                 ret.setBool(true);
                 ret.setMsg("Name already existed!");
@@ -102,15 +115,10 @@ public class AllUsers implements Serializable {
         return ret;
     }
 
-    public RetObject customerExisted(String id, String name) {
+    public RetObject customerExisted(String name) {
         //Loop through owners list to see if it is in there
         RetObject ret = new RetObject();
         for (Customer cust : customers) {
-            if (cust.getID().equals(id)) {
-                ret.setBool(true);
-                ret.setMsg("Username already existed!");
-                return ret;
-            }
             if (cust.getCustomerName().equals(name)) {
                 ret.setBool(true);
                 ret.setMsg("Name already existed!");
