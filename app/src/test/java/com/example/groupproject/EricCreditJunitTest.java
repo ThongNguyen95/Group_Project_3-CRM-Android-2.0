@@ -20,7 +20,7 @@ public class EricCreditJunitTest {
     //Test Owner SignUp method
     @Test
     public void OwnerCredits() {
-        Owner owner = new Owner("yes","yes","yes",0);
+        Owner owner = new Owner("yes","yes","yes",0,"Ques", "Ans");
         owner.addCredit(8540);
         assertEquals((double) 8540, owner.getCredit(),0);
         owner.subCredit(540);
@@ -30,8 +30,8 @@ public class EricCreditJunitTest {
     //Test Customer SignUp method
     @Test
     public void CustomerCredits() {
-        Owner owner = new Owner("yes","yes","yes",0);
-        Customer customer = new Customer("yes","yes","yes",owner);
+        Owner owner = new Owner("yes","yes","yes",0,"Ques", "Ans");
+        Customer customer = new Customer("yes","yes","yes",owner,"Ques", "Ans");
         customer.addCredit(8888);
         assertEquals((double) 8888, customer.getCredit(),0);
         customer.sendCreditTo(owner,888);

@@ -32,8 +32,8 @@ public class ThongSignUpTest {
         AllUsers allUsers = signUp.getAllUsers();
         assertEquals(false, ret.getBool()); // Test if initial value is false
         assertEquals(0, allUsers.getOwnerSize()); // Test if the list has no owner account
-        ret = signUp.signUpAsOwner("Owner", "ownerID", "ownerPassword");
-        assertEquals(true, ret.getBool()); //Test if sign up is successfully executed
+        ret = signUp.signUpAsOwner("Owner", "ownerID", "ownerPassword","Ques", "Ans");
+        assertEquals(true, ret.getBool()); //Test if sign up is successfully ex,ecuted
         assertEquals(1, allUsers.getOwnerSize()); //Test if new account is added to list
         Owner owner = allUsers.getOwnerBasedOnName("Owner");
         assertEquals("ownerID", owner.getID()); // Test if the ID is correct
@@ -45,12 +45,12 @@ public class ThongSignUpTest {
     public void CustomerSignUpTest() {
         RetObject ret = new RetObject();
         AllUsers allUsers = signUp.getAllUsers();
-        allUsers.addOwner(new Owner("owner", "owner","Owner",0));
+        allUsers.addOwner(new Owner("owner", "owner","Owner",0,"Ques", "Ans"));
         assertEquals(false, ret.getBool()); // Test if initial value is false
         assertEquals(0, allUsers.getCustomerSize()); // Test if the list
                                                              // has no customer account
         ret = signUp.signUpAsCustomer("Customer", "custID",
-                "custPassword", "Owner");
+                "custPassword", "Owner","Ques", "Ans");
         assertEquals(true, ret.getBool()); //Test if sign up is successfully executed
         assertEquals(1, allUsers.getCustomerSize()); //Test if new account is added to list
         Customer cust = allUsers.getCustomerBasedOnID("custID");
