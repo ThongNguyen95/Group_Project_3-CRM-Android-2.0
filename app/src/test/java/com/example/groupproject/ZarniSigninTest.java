@@ -25,9 +25,9 @@ public class ZarniSigninTest {
     AllUsers allUsers;
 
     public ZarniSigninTest(){
-        owner = new Owner("zarni123","1234","zarni",0,"In what city were you born?","zarni");
-        customer = new Customer("pyae123","1234","pyae",owner,"In what city were you born?","pyae");
-        customer2 = new Customer("zone123","1234","zone",owner,"In what city were you born?","pyae");
+        owner = new Owner("zarni123","1234","zarni",0,"Ques", "Ans");
+        customer = new Customer("pyae123","1234","pyae",owner,"Ques", "Ans");
+        customer2 = new Customer("zone123","1234","zone",owner,"Ques", "Ans");
 
         allUsers = new AllUsers();
         allUsers.addOwner(owner);

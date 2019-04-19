@@ -12,11 +12,12 @@ public class ThongAnnouncementTest {
     Customer customer_1;
     Customer customer_2;
     public ThongAnnouncementTest() {
-        owner = new Owner("ownerID", "ownerPW", "Owner", 0);
+        owner = new Owner("ownerID", "ownerPW", "Owner", 0,
+                "Ques", "Ans");
         customer_1 = new Customer("custID_1", "custPW_1",
-                "Customer_1", owner);
+                "Customer_1", owner,"Ques", "Ans");
         customer_2 = new Customer("custID_2", "custPW_2",
-                "Customer_2", owner);
+                "Customer_2", owner,"Ques", "Ans");
     }
 
     // This function test the owner.setAnnouncement(), which is actually not a getter function
