@@ -143,6 +143,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(OwnerMainMenuActivity.this, ManageOwnerAccountActivity.class);
                 //send string id via intent so credit activity can get either customer or owner
                 //intent.putExtra("id",owner.getID());
+                intent.putExtra("ownerid", owner.getID());
                 intent.putExtra("AllUsers", allUsers);
                 startActivity(intent);
             }

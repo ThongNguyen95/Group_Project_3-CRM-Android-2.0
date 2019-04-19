@@ -180,5 +180,14 @@ public class Owner implements Serializable {
         }
         System.out.println("You have " + count + " unread messages!");
     }
+
+    public boolean isCustomerEmpty(){
+        if(customers.size()<1)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
     
 }

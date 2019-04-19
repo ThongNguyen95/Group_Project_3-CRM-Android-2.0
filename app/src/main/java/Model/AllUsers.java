@@ -7,6 +7,7 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -130,12 +131,12 @@ public class AllUsers implements Serializable {
 
     //Myo change owner password function
     public boolean ChangeOpass(String id, String password, String npassword){
-        for(Owner owner: owners){
-            if(owner.getID().equals(id) && owner.getPassword().equals(password))
-            {
+        Iterator<Owner> itr = owners.iterator();
+        while(itr.hasNext()) {
+            Owner owner = itr.next();
+            if (owner.getID().equals(id) && owner.getPassword().equals(password)) {
                 owner.setPassword(npassword);
                 return true;
-
             }
         }
         return false;
@@ -143,10 +144,10 @@ public class AllUsers implements Serializable {
     
     //Myo change customer password function
     public boolean ChangeCpass(String id, String password, String npassword){
-        for(Customer customer: customers){
-            if(customer.getID().equals(id) && customer.getPassword().equals(password))
-            {
-
+        Iterator<Customer> itr = customers.iterator();
+        while(itr.hasNext()) {
+            Customer customer = itr.next();
+            if (customer.getID().equals(id) && customer.getPassword().equals(password)) {
                 customer.setPassword(npassword);
                 return true;
             }
@@ -197,13 +198,13 @@ public class AllUsers implements Serializable {
         return customers.size();
     }
 
-
     //Delete Owner account function
     public boolean DeleteOaccount(String id, String password){
-        for(Owner owner: owners){
-            if(owner.getID().equals(id) && owner.getPassword().equals(password))
-            {
-                owners.remove(owner);
+        Iterator<Owner> itr = owners.iterator();
+        while(itr.hasNext()) {
+            Owner owner = itr.next();
+            if (owner.getID().equals(id) && owner.getPassword().equals(password)) {
+                itr.remove();
                 return true;
             }
         }
@@ -212,10 +213,11 @@ public class AllUsers implements Serializable {
 
     //Delete Customer account function
     public boolean DeleteCaccount(String id,String password){
-        for(Customer customer: customers){
-            if(customer.getID().equals(id) && customer.getPassword().equals(password))
-            {
-                customers.remove(customer);
+        Iterator<Customer> itr = customers.iterator();
+        while(itr.hasNext()) {
+            Customer customer = itr.next();
+            if (customer.getID().equals(id) && customer.getPassword().equals(password)) {
+                itr.remove();
                 return true;
             }
         }
