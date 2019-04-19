@@ -22,9 +22,9 @@ public class DisplayCustomerAppointmentListAdapter extends RecyclerView.Adapter<
         this.tempList = _tempList;
     }
 
-    public void updateList(ArrayList<Calendar> _list){
+    /*public void updateList(ArrayList<Calendar> _list){
         tempList = _list;
-    }
+    }*/
 
     // inflates the row layout from xml when needed
     @Override

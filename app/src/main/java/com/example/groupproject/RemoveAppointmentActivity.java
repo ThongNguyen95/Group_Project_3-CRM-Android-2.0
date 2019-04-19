@@ -47,12 +47,7 @@ public class RemoveAppointmentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(tempCal != null || tempCust != null){
                     owner.removeAppointment(tempCal,tempCust);
-                    // save the data
-                    try {
-                        writeToFile(RemoveAppointmentActivity.this,allUsers);
-                    } catch (IOException e) {
-                        e.getStackTrace();
-                    }
+
                     intent.putExtra("AllUsers",allUsers);
                     setResult(RESULT_OK,intent);
                     finish();
@@ -62,6 +57,16 @@ public class RemoveAppointmentActivity extends AppCompatActivity {
                 }
 
             }
+        });
+
+        Button butNo = findViewById(R.id.butN);
+        butNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+
         });
     }
 }

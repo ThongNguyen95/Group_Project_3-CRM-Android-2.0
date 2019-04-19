@@ -66,14 +66,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
                     // add into appoint list that inside of owner class
                     owner.addAppointment(cal,allUsers.getCustomerBasedOnID(customerId));
 
-                    // save the data
-                    try {
-                        writeToFile(AddAppointmentActivity.this,allUsers);
-                    } catch (IOException e) {
-                        e.getStackTrace();
-                    }
                     intent.putExtra("AllUsers", allUsers);
-
                     setResult(RESULT_OK, intent);
                     finish();
 

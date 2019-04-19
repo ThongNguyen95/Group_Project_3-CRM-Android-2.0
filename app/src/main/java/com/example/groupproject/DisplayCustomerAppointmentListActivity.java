@@ -64,7 +64,7 @@ public class DisplayCustomerAppointmentListActivity extends AppCompatActivity im
     @Override
     public void onItemClick(View view, int position) {
         index = Integer.toString(position);
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(DisplayCustomerAppointmentListActivity.this,RemoveAppointmentActivity.class);
         intent.putExtra("index",index);
         //intent.getIntExtra();
@@ -80,25 +80,21 @@ public class DisplayCustomerAppointmentListActivity extends AppCompatActivity im
         if(requestCode == REMOVE_ACTIVITY_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+
+                // save the data
                 try {
                     writeToFile(DisplayCustomerAppointmentListActivity.this,allUsers);
                 } catch (IOException e) {
                     e.getStackTrace();
                 }
 
-                // make a new array list and add only appointment date that belong with the customer
-                tempList = new ArrayList<>();
-                String ownerID = customer.getBus().getID();
-                int size = allUsers.getOwnerBasedOnID(ownerID).getAppointmentCustList().size();
-                for(int i =0; i<size; i++){
-                    String allCustName = allUsers.getOwnerBasedOnID(ownerID).getAppointmentCustList().get(i).getCustomerName();
-                    String curCustName = customer.getCustomerName();
-                    if(allCustName.equals(curCustName)){
-                        tempList.add(allUsers.getOwnerBasedOnID(ownerID).getAppointmentDateList().get(i));
-                    }
-                }
-                adapter.updateList(tempList);
-                adapter.notifyItemRemoved(Integer.valueOf(index));
+                Intent intent = getIntent();
+                intent.putExtra("customerID",customer.getID());
+                intent.putExtra("AllUsers",allUsers);
+                setResult(RESULT_OK,intent);
+                finish();
+
+
             }
         }
 

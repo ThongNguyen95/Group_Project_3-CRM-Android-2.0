@@ -18,7 +18,7 @@ import static Controller.IO.writeToFile;
 
 public class OwnerMainMenuActivity extends AppCompatActivity {
     private static final int DISPLAY_ACTIVITY_REQUEST_CODE = 0;
-    private static final int APPT_ACTIVITY_REQUEST_CODE = 1;
+    private static final int ADDAPPT_ACTIVITY_REQUEST_CODE = 1;
     private static final int ANNOUNCE_ACTIVITY_REQUEST_CODE = 2;
     private static final int CREDIT_ACTIVITY_REQUEST_CODE = 3;
     AllUsers allUsers;
@@ -119,7 +119,7 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(OwnerMainMenuActivity.this, AddAppointmentActivity.class);
                 intent.putExtra("ownerid", owner.getID());
                 intent.putExtra("AllUsers", allUsers);
-                startActivityForResult(intent, APPT_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, ADDAPPT_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -154,9 +154,15 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == APPT_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == ADDAPPT_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+                    // save the data
+                    try {
+                        writeToFile(OwnerMainMenuActivity.this,allUsers);
+                    } catch (IOException e) {
+                        e.getStackTrace();
+                    }
             }
         }
         if (requestCode == DISPLAY_ACTIVITY_REQUEST_CODE) {
