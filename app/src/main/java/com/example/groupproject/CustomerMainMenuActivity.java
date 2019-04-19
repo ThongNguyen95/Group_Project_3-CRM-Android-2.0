@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -22,6 +21,7 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
     Customer customer;
     String customerID;
     private int SECOND_ACTIVITY_REQUEST_CODE = 2;
+    private int VIEWCHANGE_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_main_menu);
 
         final Intent intent = getIntent();
-        allUsers = (AllUsers)intent.getSerializableExtra("AllUsers");
+        allUsers = (AllUsers) intent.getSerializableExtra("AllUsers");
         customerID = intent.getStringExtra("customerID");
         customer = allUsers.getCustomerBasedOnID(customerID);
         final Context context = this;
@@ -56,12 +56,11 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CustomerMainMenuActivity.this, CreditActivity.class);
                 //send string id via intent so credit activity can get either customer or owner
-                intent.putExtra("id",customerID);
-                intent.putExtra("AllUsers",allUsers);
-                startActivityForResult(intent,SECOND_ACTIVITY_REQUEST_CODE);
+                intent.putExtra("id", customerID);
+                intent.putExtra("AllUsers", allUsers);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
             }
         });
-
 
 
         //cancel button
@@ -84,9 +83,10 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CustomerMainMenuActivity.this, DisplayCustomerAppointmentListActivity.class);
                 //send string id via intent so credit activity can get either customer or owner
-                intent.putExtra("customerID",customer.getID());
-                intent.putExtra("AllUsers",allUsers);
-                startActivity(intent);
+                intent.putExtra("customerID", customer.getID());
+                intent.putExtra("AllUsers", allUsers);
+                startActivityForResult(intent, VIEWCHANGE_ACTIVITY_REQUEST_CODE);
+                //startActivity(intent);
             }
         });
 
@@ -97,7 +97,7 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(CustomerMainMenuActivity.this, ManageCustomerAccountActivity.class);
                 //send string id via intent so credit activity can get either customer or owner
                 //intent.putExtra("id",owner.getID());
-                intent.putExtra("AllUsers",allUsers);
+                intent.putExtra("AllUsers", allUsers);
                 startActivity(intent);
             }
         });
@@ -109,11 +109,11 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
 
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                allUsers = (AllUsers)data.getSerializableExtra("AllUsers");
+                allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
                 customer = allUsers.getCustomerBasedOnID(customerID);
                 //Save the data
                 try {
-                    writeToFile( CustomerMainMenuActivity.this,allUsers);
+                    writeToFile(CustomerMainMenuActivity.this, allUsers);
                 } catch (IOException e) {
                     e.getStackTrace();
                 }
@@ -123,5 +123,21 @@ public class CustomerMainMenuActivity extends AppCompatActivity {
             }
         }
 
+        if (requestCode == VIEWCHANGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                allUsers = (AllUsers) data.getSerializableExtra("AllUsers");
+
+                // save the data
+                try {
+                    writeToFile(CustomerMainMenuActivity.this, allUsers);
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
+            }
+        }
     }
 }
+
+
+
