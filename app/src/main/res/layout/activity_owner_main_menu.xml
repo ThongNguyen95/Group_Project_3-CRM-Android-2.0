@@ -124,7 +124,7 @@
                     android:id="@+id/owner_view_customers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="View Customer Credit" />
+                    android:text="View Customer Information" />
 
                 <Button
                     android:id="@+id/manage_credits"

@@ -55,6 +55,18 @@ public class OwnerMainMenuActivity extends AppCompatActivity {
         if (dCredit) {
             textCredit.setText(Double.toString(owner.getCredit()));
         }
+        //View All Customers' Credit Info
+        Button butViewCredits = findViewById(R.id.owner_view_customers);
+        butViewCredits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerMainMenuActivity.this,
+                        OwnerViewCustomerCreditActivity.class);
+                intent.putExtra("id", owner.getID());
+                intent.putExtra("AllUsers", allUsers);
+                startActivity(intent);
+            }
+        });
 
         //Display Announcement
         textAnnounce = findViewById(R.id.owner_menu_announcement_content);
