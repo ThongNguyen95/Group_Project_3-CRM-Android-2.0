@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".PasswordRecoveryActivity"></activity>
+        <activity android:name=".OwnerViewCustomerCreditActivity"></activity>
+        <activity android:name=".PasswordRecoveryActivity" />
         <activity android:name=".ForgotPasswordMenuActivity" />
-        <activity android:name=".RemoveAppointmentActivity"></activity>
+        <activity android:name=".RemoveAppointmentActivity" />
         <activity android:name=".DisplayCustomerListActivity" />
         <activity android:name=".DisplayCustomerAppointmentListActivity" />
         <activity android:name=".AnnouncementActivity" />

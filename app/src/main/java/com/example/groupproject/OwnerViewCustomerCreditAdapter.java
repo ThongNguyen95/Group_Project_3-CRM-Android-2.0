@@ -10,13 +10,13 @@ import android.widget.TextView;
 import Model.Customer;
 import Model.Owner;
 
-public class DisplayCustomerListAdapter extends RecyclerView.Adapter<DisplayCustomerListAdapter.ViewHolder> {
+public class OwnerViewCustomerCreditAdapter extends RecyclerView.Adapter<OwnerViewCustomerCreditAdapter.ViewHolder> {
     private Owner owner;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    DisplayCustomerListAdapter(Context context, Owner _owner) {
+    OwnerViewCustomerCreditAdapter(Context context, Owner _owner) {
         this.mInflater = LayoutInflater.from(context);
         this.owner = _owner;
     }
@@ -31,13 +31,10 @@ public class DisplayCustomerListAdapter extends RecyclerView.Adapter<DisplayCust
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //String category = allReminders.getCategory(position).toString();
         StringBuilder strBuild = new StringBuilder();
         strBuild.append(owner.getCustomerList().get(position).getCustomerName());
-        strBuild.append("(id: ");
-        strBuild.append(owner.getCustomerList().get(position).getID());
-        strBuild.append("):\t\t$");
-        strBuild.append(owner.getCustomerList().get(position).getCredit());
+        strBuild.append(":\t$");
+        strBuild.append(owner.getCustomerList().get(position).getCustomerName());
         holder.myTextView.setText(strBuild.toString());
     }
 
