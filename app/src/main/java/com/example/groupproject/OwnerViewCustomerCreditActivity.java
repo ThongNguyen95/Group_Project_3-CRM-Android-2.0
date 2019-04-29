@@ -11,6 +11,7 @@ import android.widget.Button;
 import Model.AllUsers;
 import Model.Owner;
 
+// Display Recorded data of Customers to provide Business Owner information needed for service improvement
 public class OwnerViewCustomerCreditActivity extends AppCompatActivity {
     DisplayCustomerListAdapter adapter;
     Owner owner;
